@@ -1,0 +1,42 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	text-align: center;
+	align-items: center;
+	width: 100%;
+	height: calc(100vh - 69px);
+}
+
+.loading {
+	display: inline-block;
+	position: relative;
+	width: 64px;
+	height: 64px;
+}
+.loading div {
+	position: absolute;
+	background: rgb(82, 82, 82);
+	opacity: 1;
+	border-radius: 50%;
+	animation: loading 1.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.loading div:nth-child(2) {
+	animation-delay: -0.7s;
+}
+@keyframes loading {
+	0% {
+		top: 28px;
+		left: 28px;
+		width: 0;
+		height: 0;
+		opacity: 1;
+	}
+	100% {
+		top: -31px;
+		left: -31px;
+		width: 118px;
+		height: 118px;
+		opacity: 0;
+	}
+}

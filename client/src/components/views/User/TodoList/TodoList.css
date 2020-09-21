@@ -1,0 +1,20 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	text-align: center;
+	align-items: center;
+	width: 100%;
+	height: calc(100vh - 69px);
+}
+
+.flex-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.button {
+	color: rgba(0, 132, 255, 0.7) !important;
+	background-color: rgba(0, 132, 255, 0.255) !important;
+}
