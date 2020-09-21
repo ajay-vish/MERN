@@ -35,13 +35,24 @@ export function getTodoByUser(user) {
 	};
 }
 
-export function updateTodo(user) {
+export function updateTodo(todo) {
 	const request = axios
-		.patch(`${TODO_SERVER}/patch/${user}`)
+		.patch(`${TODO_SERVER}/patch/${todo._id}`, todo)
 		.then((response) => response.data);
 
 	return {
 		type: Types.UPDATE_TODO,
+		payload: request,
+	};
+}
+
+export function deleteTodo(todo) {
+	const request = axios
+		.patch(`${TODO_SERVER}/delete/${todo._id}`)
+		.then((response) => response.data);
+
+	return {
+		type: Types.DELETE_TODO,
 		payload: request,
 	};
 }
