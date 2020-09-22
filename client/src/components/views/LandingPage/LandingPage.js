@@ -28,7 +28,7 @@ function LandingPage() {
 						<h2>Email: {user.data.email}</h2>
 						<FaCode style={{ fontSize: '4rem' }} />
 						<br></br>
-						<a classList='todo-link'>
+						<a href='/todo' classList='todo-link'>
 							<h2>See Todo list</h2>
 						</a>
 					</div>

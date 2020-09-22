@@ -1,57 +1,83 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import SendIcon from '@material-ui/icons/Send';
-import SendTwoToneIcon from '@material-ui/icons/SendTwoTone';
-import './TodoList.css';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import PhoneIcon from '@material-ui/icons/Phone';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
+function TabPanel(props) {
+	const { children, value, index, ...other } = props;
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		'& > *': {
-			margin: theme.spacing(1),
-			width: '30vh',
-		},
-	},
-}));
-
-function TodoList() {
-	const [todoList, setTodoList] = useState([]);
-	const [todo, setTodo] = useState('');
-	const classes = useStyles();
-
-	// useEffect =
-	// 	(() => {
-	// 		//get data from server
-	// 	},
-	// 	[]);
 	return (
-		<div className='container'>
-			<div>
-				<ul>
-					{/* {todoList.map((todo) => {
-						<li>todo</li>;
-					})} */}
-					<li>Hello</li>
-					<li>{todo}</li>
-				</ul>
-				<form className={classes.root} noValidate autoComplete='off'>
-					<div className='flex-container'>
-						<TextField
-							label='Todo'
-							value={todo}
-							onChange={(e) => setTodo(e.target.value)}
-						/>
-						<label htmlFor='icon-button-file'>
-							<IconButton color='primary' className='button' component='span'>
-								<SendTwoToneIcon />
-							</IconButton>
-						</label>
-					</div>
-				</form>
-			</div>
+		<div
+			role='tabpanel'
+			hidden={value !== index}
+			id={`scrollable-force-tabpanel-${index}`}
+			aria-labelledby={`scrollable-force-tab-${index}`}
+			{...other}>
+			{value === index && (
+				<Box p={3}>
+					<Typography>{children}</Typography>
+				</Box>
+			)}
 		</div>
 	);
 }
 
-export default TodoList;
+TabPanel.propTypes = {
+	children: PropTypes.node,
+	index: PropTypes.any.isRequired,
+	value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+	return {
+		id: `scrollable-force-tab-${index}`,
+		'aria-controls': `scrollable-force-tabpanel-${index}`,
+	};
+}
+
+const useStyles = makeStyles((theme) => ({
+	root: {
+		padding: '2rem',
+		flexGrow: 1,
+		width: '100%',
+		backgroundColor: theme.palette.background.paper,
+	},
+}));
+
+export default function ScrollableTabsButtonForce() {
+	const classes = useStyles();
+	const [value, setValue] = React.useState(0);
+
+	const handleChange = (event, newValue) => {
+		setValue(newValue);
+	};
+
+	return (
+		<div className={classes.root}>
+			<AppBar position='static' color='default'>
+				<Tabs
+					value={value}
+					onChange={handleChange}
+					variant='scrollable'
+					scrollButtons='off'
+					indicatorColor='primary'
+					textColor='primary'>
+					<Tab label='Show All' icon={<PhoneIcon />} {...a11yProps(0)} />
+					<Tab label='Completed' icon={<FavoriteIcon />} {...a11yProps(1)} />
+				</Tabs>
+			</AppBar>
+			<TabPanel value={value} index={0}>
+				<Paper elevation={3}>A</Paper>
+			</TabPanel>
+			<TabPanel value={value} index={1}>
+				Item Two
+			</TabPanel>
+		</div>
+	);
+}
