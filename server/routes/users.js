@@ -43,11 +43,15 @@ router.post('/login', (req, res) => {
 		if (!user)
 			return res.json({
 				loginSuccess: false,
-				message: 'Auth failed, email not found',
+				message:
+					"The e-mail not registered, Click on 'register now!' to register",
 			});
 		user.comparePassword(req.body.password, (err, isMatch) => {
 			if (!isMatch) {
-				return res.json({ loginSuccess: false, message: 'Wrong password' });
+				return res.json({
+					loginSuccess: false,
+					message: 'Wrong passward!, Please check the password and try again',
+				});
 			}
 			user.generateToken((err, user) => {
 				if (err) return res.status(400).send(err);

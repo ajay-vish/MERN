@@ -69,7 +69,7 @@ function LoginPage(props) {
 								}
 								props.history.push('/');
 							} else {
-								setFormErrorMessage('Check out your Account or Password again');
+								setFormErrorMessage(response.payload.message);
 							}
 						})
 						.catch((err) => {
