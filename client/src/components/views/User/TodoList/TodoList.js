@@ -73,7 +73,7 @@ export default function ScrollableTabsButtonForce() {
 				</Tabs>
 			</AppBar>
 			<TabPanel value={value} index={0}>
-				<Paper elevation={3}>A</Paper>
+				<Paper elevation={3}>Anp</Paper>
 			</TabPanel>
 			<TabPanel value={value} index={1}>
 				Item Two

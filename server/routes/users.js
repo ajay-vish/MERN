@@ -31,7 +31,6 @@ router.get('/:id', (req, res) => {
 router.post('/register', (req, res) => {
 	console.log(req.body);
 	const user = new User(req.body);
-	console.log(user);
 	user.save((err, doc) => {
 		if (err) return res.json({ success: false, err });
 		return res.status(200).json({
@@ -47,11 +46,10 @@ router.post('/login', (req, res) => {
 				loginSuccess: false,
 				message: 'Auth failed, email not found',
 			});
-
 		user.comparePassword(req.body.password, (err, isMatch) => {
-			if (!isMatch)
+			if (!isMatch) {
 				return res.json({ loginSuccess: false, message: 'Wrong password' });
-
+			}
 			user.generateToken((err, user) => {
 				if (err) return res.status(400).send(err);
 				res.cookie('w_authExp', user.tokenExp);
